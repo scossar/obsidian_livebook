@@ -10,24 +10,32 @@ defmodule ObsidianLivebook do
 
       vault_path = "/home/scossar/obsidian_vault"
 
-      Obsidian.publish(vault_path)
+      # from within a Livebook
+      Obsidian.publish(vault_path, __ENV__.file)
       Published and opened.
       :ok
 
-      Obsidian.publish(vault_path)
+      Obsidian.publish(vault_path, __ENV__.file)
       `/home/scossar/obsidian_vault/Publishing Livebooks to Obsidian.md` exists.
       Publish with `force: true` to overwrite.
       {:error, :already_exists}
 
-      Obsidian.publish(vault_path, force: true)
+      Obsidian.publish(vault_path, __ENV__.file, force: true)
+      Published and opened.
+      :ok
+
+      # From IEx
+      iex> ObsidianLivebook.publish("/path/to/obsidian_vault", "/path/to/livebook_publish_test_two.livemd", force: true)
       Published and opened.
       :ok
   """
-  def publish(vault_path, opts \\ []) do
+  def publish(vault_path, source_file, opts \\ []) do
     force? = Keyword.get(opts, :force, false)
 
-    [livebook_path, _cell_id] =
-      String.split(__ENV__.file, "#cell:", parts: 2)
+    livebook_path =
+      source_file
+      |> String.split("#cell:", parts: 2)
+      |> hd()
 
     true = String.ends_with?(livebook_path, ".livemd")
 
