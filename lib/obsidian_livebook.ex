@@ -80,7 +80,9 @@ defmodule ObsidianLivebook do
   end
 
   defp clean_content(content) do
-    reg = ~r/\n<!-- livebook:{"break_markdown":true} -->\n/
+    reg =
+      ~r/\n<!--[ \t]*livebook:\s*\{\s*"(?:force_markdown|break_markdown)"\s*:\s*true\s*\}\s*-->\n/
+
     String.replace(content, reg, "")
   end
 
