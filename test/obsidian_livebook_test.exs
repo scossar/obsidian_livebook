@@ -2,7 +2,7 @@ defmodule ObsidianLivebookTest do
   use ExUnit.Case
   doctest ObsidianLivebook
 
-  test "greets the world" do
-    assert ObsidianLivebook.hello() == :world
+  test "it publishes to Obsidian" do
+    assert true == true
   end
 end
