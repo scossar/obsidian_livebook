@@ -12,6 +12,14 @@ Mix.install([
 ])
 ```
 
+Or with:
+
+```elixir
+Mix.install([
+  {:obsidian_livebook, github: "scossar/obsidian_livebook"}
+])
+```
+
 ## Usage
 
 Make sure the Livebook has been saved to disk, then:
@@ -29,3 +37,7 @@ iex(2)> ObsidianLivebook.publish("/path/to/obsidian_vault", "/path/to/livebook_p
 Published and opened.
 :ok
 ```
+
+## Issues
+
+- The vault name `"obsidian_vault"` is hard coded into the call to `ObsidianLivebook.open_note/2`
